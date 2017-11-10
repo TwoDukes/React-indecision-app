@@ -39,40 +39,50 @@ var template = React.createElement(
     )
 );
 
-var user = {
-    name: "Dustin",
-    age: 21,
-    location: "Los Angeles"
+var count = 0;
+var addOne = function addOne() {
+    count++;
+    renderCounterApp();
 };
-
-var getLocation = function getLocation(location) {
-    if (location) {
-        return React.createElement(
-            'p',
-            null,
-            'Location: ',
-            location
-        );
-    }
+var minusOne = function minusOne() {
+    count--;
+    renderCounterApp();
 };
-
-var templateTwo = React.createElement(
-    'div',
-    null,
-    React.createElement(
-        'h1',
-        null,
-        user.name ? user.name : "Anonymous"
-    ),
-    user.age && user.age >= 18 && React.createElement(
-        'p',
-        null,
-        'Age: ',
-        user.age
-    ),
-    getLocation(user.location)
-);
+var reset = function reset() {
+    count = 0;
+    renderCounterApp();
+};
 
 var appRoot = document.querySelector('#app');
 
-ReactDOM.render(template, appRoot);
+var renderCounterApp = function renderCounterApp() {
+    var templateTwo = React.createElement(
+        'div',
+        null,
+        React.createElement(
+            'h1',
+            null,
+            'Count: ',
+            count
+        ),
+        React.createElement(
+            'button',
+            { onClick: addOne },
+            '+1'
+        ),
+        React.createElement(
+            'button',
+            { onClick: minusOne },
+            '-1'
+        ),
+        React.createElement(
+            'button',
+            { onClick: reset },
+            'reset'
+        )
+    );
+
+    ReactDOM.render(templateTwo, appRoot);
+};
+
+renderCounterApp();
