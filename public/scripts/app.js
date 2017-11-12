@@ -94,7 +94,7 @@ var IndecisionApp = function (_React$Component) {
 }(React.Component);
 
 ;
-
+//Title and subtitle at the top
 var Header = function Header(props) {
   return React.createElement(
     'div',
@@ -111,7 +111,7 @@ var Header = function Header(props) {
     )
   );
 };
-
+//The what should I do button
 var Action = function Action(props) {
   return React.createElement(
     'div',
@@ -126,7 +126,7 @@ var Action = function Action(props) {
     )
   );
 };
-
+//The options list with remove all button
 var Options = function Options(props) {
   return React.createElement(
     'div',
@@ -141,7 +141,7 @@ var Options = function Options(props) {
     })
   );
 };
-
+//individual option
 var Option = function Option(props) {
   return React.createElement(
     'div',
@@ -149,6 +149,7 @@ var Option = function Option(props) {
     props.optionText
   );
 };
+//The bottom form to submit a new option
 
 var AddOption = function (_React$Component2) {
   _inherits(AddOption, _React$Component2);

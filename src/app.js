@@ -61,7 +61,7 @@ class IndecisionApp extends React.Component {
     );
   }
 };
-
+//Title and subtitle at the top
 const Header = (props) => {
   return (
       <div>
@@ -70,7 +70,7 @@ const Header = (props) => {
       </div>
     );
 }
-
+//The what should I do button
 const Action = (props) => {
   return (
       <div>
@@ -83,7 +83,7 @@ const Action = (props) => {
       </div>
     );
 }
-
+//The options list with remove all button
 const Options = (props) => {
   return (
       <div>
@@ -94,7 +94,7 @@ const Options = (props) => {
       </div>
     );
 }
-
+//individual option
 const Option = (props) => {
   return (
       <div>
@@ -102,7 +102,7 @@ const Option = (props) => {
       </div>
     );
 }
-
+//The bottom form to submit a new option
 class AddOption extends React.Component {
   constructor(props){
     super(props);
