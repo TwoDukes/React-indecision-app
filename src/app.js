@@ -42,6 +42,7 @@ class IndecisionApp extends React.Component {
     const title = "Indecision";
     const subtitle = "Put your life in the hands of a computer";
 
+    //MAIN BODY TO BE RENDERED
     return (
       <div>
         <Header title={title} subtitle={subtitle}/>
@@ -61,53 +62,45 @@ class IndecisionApp extends React.Component {
   }
 };
 
-class Header extends React.Component {
-  render() {
-    return (
+const Header = (props) => {
+  return (
       <div>
-        <h1>{this.props.title || 'No Title'}</h1>
-        <h2>{this.props.subtitle || 'No Subtitle'}</h2>
+        <h1>{props.title || 'No Title'}</h1>
+        <h2>{props.subtitle || 'No Subtitle'}</h2>
       </div>
     );
-  }
 }
 
-class Action extends React.Component {
-  render() {
-    return (
+const Action = (props) => {
+  return (
       <div>
         <button 
-          onClick={this.props.handlePick} 
-          disabled={!this.props.hasOption}
+          onClick={props.handlePick} 
+          disabled={!props.hasOption}
         >
           What should I do?
         </button>
       </div>
     );
-  }
 }
 
-class Options extends React.Component {
-  render() {
-    return (
+const Options = (props) => {
+  return (
       <div>
-      <button onClick={this.props.handleDeleteOptions}>Remove All</button>
+      <button onClick={props.handleDeleteOptions}>Remove All</button>
         {
-          this.props.options.map((option)=> <Option key={option} optionText={option} />)
+          props.options.map((option)=> <Option key={option} optionText={option} />)
         } 
       </div>
     );
-  }
 }
 
-class Option extends React.Component {
-  render() {
-    return (
+const Option = (props) => {
+  return (
       <div>
-        {this.props.optionText}
+         {props.optionText}
       </div>
     );
-  }
 }
 
 class AddOption extends React.Component {
@@ -144,5 +137,4 @@ class AddOption extends React.Component {
   }
 }
 
-ReactDOM.render(
-  <IndecisionApp/>, document.getElementById('app'));
+ReactDOM.render(<IndecisionApp/>, document.getElementById('app'));
