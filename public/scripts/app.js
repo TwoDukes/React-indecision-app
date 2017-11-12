@@ -14,28 +14,39 @@ var Counter = function (_React$Component) {
   function Counter(props) {
     _classCallCheck(this, Counter);
 
+    //binding methods to this
     var _this = _possibleConstructorReturn(this, (Counter.__proto__ || Object.getPrototypeOf(Counter)).call(this, props));
 
     _this.handleAddOne = _this.handleAddOne.bind(_this);
     _this.handleMinusOne = _this.handleMinusOne.bind(_this);
     _this.handleReset = _this.handleReset.bind(_this);
+    //setup state
+    _this.state = {
+      count: 0
+    };
     return _this;
   }
 
   _createClass(Counter, [{
     key: 'handleAddOne',
     value: function handleAddOne() {
-      alert('addOne');
+      this.setState(function (prevState) {
+        return { count: prevState.count + 1 };
+      });
     }
   }, {
     key: 'handleMinusOne',
     value: function handleMinusOne() {
-      alert('minusOne');
+      this.setState(function (prevState) {
+        return { count: prevState.count - 1 };
+      });
     }
   }, {
     key: 'handleReset',
     value: function handleReset() {
-      alert('reset');
+      this.setState(function () {
+        return { count: 0 };
+      });
     }
   }, {
     key: 'render',
@@ -46,7 +57,8 @@ var Counter = function (_React$Component) {
         React.createElement(
           'h1',
           null,
-          'Counter: '
+          'Counter: ',
+          this.state.count
         ),
         React.createElement(
           'button',
