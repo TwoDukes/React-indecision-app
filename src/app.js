@@ -7,7 +7,7 @@ class IndecisionApp extends React.Component {
     this.handleAddOption = this.handleAddOption.bind(this);
     //setup state
     this.state = {
-      options: []
+      options: props.options
     }
   };
   //START: APP METHODS
@@ -39,13 +39,12 @@ class IndecisionApp extends React.Component {
   //END: APP METHODS
 
   render() {
-    const title = "Indecision";
     const subtitle = "Put your life in the hands of a computer";
 
     //MAIN BODY TO BE RENDERED
     return (
       <div>
-        <Header title={title} subtitle={subtitle}/>
+        <Header subtitle={subtitle}/>
         <Action 
           handlePick={this.handlePick}
           hasOption={this.state.options.length > 0}
@@ -61,15 +60,24 @@ class IndecisionApp extends React.Component {
     );
   }
 };
+IndecisionApp.defaultProps = {
+  options: []
+}
+
 //Title and subtitle at the top
 const Header = (props) => {
   return (
       <div>
-        <h1>{props.title || 'No Title'}</h1>
-        <h2>{props.subtitle || 'No Subtitle'}</h2>
+        <h1>{props.title}</h1>
+        {props.subtitle && <h2>{props.subtitle}</h2>}
       </div>
     );
 }
+Header.defaultProps = {
+  title: 'Indecision'
+}
+
+
 //The what should I do button
 const Action = (props) => {
   return (

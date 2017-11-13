@@ -22,7 +22,7 @@ var IndecisionApp = function (_React$Component) {
     _this.handleAddOption = _this.handleAddOption.bind(_this);
     //setup state
     _this.state = {
-      options: []
+      options: props.options
     };
     return _this;
   }
@@ -67,14 +67,13 @@ var IndecisionApp = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
-      var title = "Indecision";
       var subtitle = "Put your life in the hands of a computer";
 
       //MAIN BODY TO BE RENDERED
       return React.createElement(
         'div',
         null,
-        React.createElement(Header, { title: title, subtitle: subtitle }),
+        React.createElement(Header, { subtitle: subtitle }),
         React.createElement(Action, {
           handlePick: this.handlePick,
           hasOption: this.state.options.length > 0
@@ -94,25 +93,31 @@ var IndecisionApp = function (_React$Component) {
 }(React.Component);
 
 ;
-//Title and subtitle at the top
-var Header = function Header(props) {
+IndecisionApp.defaultProps = {
+  options: []
+
+  //Title and subtitle at the top
+};var Header = function Header(props) {
   return React.createElement(
     'div',
     null,
     React.createElement(
       'h1',
       null,
-      props.title || 'No Title'
+      props.title
     ),
-    React.createElement(
+    props.subtitle && React.createElement(
       'h2',
       null,
-      props.subtitle || 'No Subtitle'
+      props.subtitle
     )
   );
 };
-//The what should I do button
-var Action = function Action(props) {
+Header.defaultProps = {
+  title: 'Indecision'
+
+  //The what should I do button
+};var Action = function Action(props) {
   return React.createElement(
     'div',
     null,
