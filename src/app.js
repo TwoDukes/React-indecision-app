@@ -17,7 +17,7 @@ class IndecisionApp extends React.Component {
       const options = JSON.parse(json);
       if(options) this.setState(() => ({options}));
     } catch(e) {
-      //Do nothing at all
+      //Do nothing at all 
     }
   }
   //Save new options to local storage

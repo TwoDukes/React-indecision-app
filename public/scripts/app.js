@@ -39,7 +39,7 @@ var IndecisionApp = function (_React$Component) {
           return { options: options };
         });
       } catch (e) {
-        //Do nothing at all
+        //Do nothing at all 
       }
     }
     //Save new options to local storage
