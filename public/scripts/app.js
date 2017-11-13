@@ -20,10 +20,9 @@ var IndecisionApp = function (_React$Component) {
     _this.handleDeleteOptions = _this.handleDeleteOptions.bind(_this);
     _this.handlePick = _this.handlePick.bind(_this);
     _this.handleAddOption = _this.handleAddOption.bind(_this);
+    _this.handleDeleteOption = _this.handleDeleteOption.bind(_this);
     //setup state
-    _this.state = {
-      options: props.options
-    };
+    _this.state = { options: props.options };
     return _this;
   }
 
@@ -38,9 +37,22 @@ var IndecisionApp = function (_React$Component) {
       });
     }
   }, {
-    key: 'handlePick',
+    key: 'handleDeleteOption',
 
+    //remove individual object selected
+    value: function handleDeleteOption(optionToRemove) {
+      this.setState(function (prevs) {
+        return {
+          options: prevs.options.filter(function (option) {
+            return option !== optionToRemove;
+          })
+        };
+      });
+    }
     //randomly pick an options
+
+  }, {
+    key: 'handlePick',
     value: function handlePick() {
       var rand = Math.floor(Math.random() * this.state.options.length);
       var option = this.state.options[rand];
@@ -57,9 +69,7 @@ var IndecisionApp = function (_React$Component) {
       }
       //set the new option in state if no error
       this.setState(function (prevs) {
-        return {
-          options: prevs.options.concat(option)
-        };
+        return { options: prevs.options.concat(option) };
       });
     }
     //END: APP METHODS
@@ -80,7 +90,8 @@ var IndecisionApp = function (_React$Component) {
         }),
         React.createElement(Options, {
           options: this.state.options,
-          handleDeleteOptions: this.handleDeleteOptions
+          handleDeleteOptions: this.handleDeleteOptions,
+          handleDeleteOption: this.handleDeleteOption
         }),
         React.createElement(AddOption, {
           handleAddOption: this.handleAddOption
@@ -142,7 +153,11 @@ var Options = function Options(props) {
       'Remove All'
     ),
     props.options.map(function (option) {
-      return React.createElement(Option, { key: option, optionText: option });
+      return React.createElement(Option, {
+        key: option,
+        optionText: option,
+        handleDeleteOption: props.handleDeleteOption
+      });
     })
   );
 };
@@ -151,7 +166,16 @@ var Option = function Option(props) {
   return React.createElement(
     'div',
     null,
-    props.optionText
+    props.optionText,
+    React.createElement(
+      'button',
+      {
+        onClick: function onClick(e) {
+          props.handleDeleteOption(props.optionText);
+        }
+      },
+      'remove'
+    )
   );
 };
 //The bottom form to submit a new option
@@ -167,9 +191,7 @@ var AddOption = function (_React$Component2) {
 
     _this2.handleAddOption = _this2.handleAddOption.bind(_this2);
     //setup state
-    _this2.state = {
-      error: undefined
-    };
+    _this2.state = { error: undefined };
     return _this2;
   }
   //grab submitted options and send it to parent for addition

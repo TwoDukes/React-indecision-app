@@ -5,16 +5,21 @@ class IndecisionApp extends React.Component {
     this.handleDeleteOptions = this.handleDeleteOptions.bind(this);
     this.handlePick = this.handlePick.bind(this);
     this.handleAddOption = this.handleAddOption.bind(this);
+    this.handleDeleteOption = this.handleDeleteOption.bind(this);
     //setup state
-    this.state = {
-      options: props.options
-    }
+    this.state = {options: props.options};
   };
   //START: APP METHODS
   //remove all options
   handleDeleteOptions(){
     this.setState(() => ({options:[]}));
   };
+  //remove individual object selected
+  handleDeleteOption(optionToRemove){
+    this.setState((prevs) => ({
+      options: prevs.options.filter((option) => option !== optionToRemove)
+    }))
+  }
   //randomly pick an options
   handlePick(){
     const rand = Math.floor(Math.random() * this.state.options.length);
@@ -30,11 +35,7 @@ class IndecisionApp extends React.Component {
       return 'This option already exists';
     }
     //set the new option in state if no error
-    this.setState((prevs) => {
-      return {
-        options: prevs.options.concat(option)
-      }
-    });
+    this.setState((prevs) => ({options: prevs.options.concat(option)}));
   }
   //END: APP METHODS
 
@@ -52,6 +53,7 @@ class IndecisionApp extends React.Component {
         <Options 
           options={this.state.options}
           handleDeleteOptions={this.handleDeleteOptions}
+          handleDeleteOption={this.handleDeleteOption}
         />
         <AddOption
           handleAddOption={this.handleAddOption}
@@ -97,7 +99,13 @@ const Options = (props) => {
       <div>
       <button onClick={props.handleDeleteOptions}>Remove All</button>
         {
-          props.options.map((option)=> <Option key={option} optionText={option} />)
+          props.options.map((option) => (
+              <Option 
+                key={option} 
+                optionText={option}
+                handleDeleteOption={props.handleDeleteOption}
+              />
+            ))
         } 
       </div>
     );
@@ -107,6 +115,13 @@ const Option = (props) => {
   return (
       <div>
          {props.optionText}
+         <button 
+            onClick={(e) => {
+              props.handleDeleteOption(props.optionText);
+            }}
+         >
+          remove
+         </button>
       </div>
     );
 }
@@ -117,9 +132,7 @@ class AddOption extends React.Component {
     //function binding
     this.handleAddOption = this.handleAddOption.bind(this);
     //setup state
-    this.state = {
-      error: undefined
-    }
+    this.state = {error: undefined};
   }
   //grab submitted options and send it to parent for addition
   handleAddOption(e){
