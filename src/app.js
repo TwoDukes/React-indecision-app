@@ -7,7 +7,7 @@ class IndecisionApp extends React.Component {
     this.handleAddOption = this.handleAddOption.bind(this);
     this.handleDeleteOption = this.handleDeleteOption.bind(this);
     //setup state
-    this.state = {options: props.options};
+    this.state = {options: []};
   };
   //START: APP METHODS
   //Set options from local storage if they exist
@@ -80,9 +80,6 @@ class IndecisionApp extends React.Component {
     );
   }
 };
-IndecisionApp.defaultProps = {
-  options: []
-}
 
 //Title and subtitle at the top
 const Header = (props) => {

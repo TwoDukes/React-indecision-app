@@ -22,7 +22,7 @@ var IndecisionApp = function (_React$Component) {
     _this.handleAddOption = _this.handleAddOption.bind(_this);
     _this.handleDeleteOption = _this.handleDeleteOption.bind(_this);
     //setup state
-    _this.state = { options: props.options };
+    _this.state = { options: [] };
     return _this;
   }
 
@@ -130,11 +130,9 @@ var IndecisionApp = function (_React$Component) {
 }(React.Component);
 
 ;
-IndecisionApp.defaultProps = {
-  options: []
 
-  //Title and subtitle at the top
-};var Header = function Header(props) {
+//Title and subtitle at the top
+var Header = function Header(props) {
   return React.createElement(
     'div',
     null,
