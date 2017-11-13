@@ -10,6 +10,24 @@ class IndecisionApp extends React.Component {
     this.state = {options: props.options};
   };
   //START: APP METHODS
+  //Set options from local storage if they exist
+  componentDidMount(){
+    try {
+      const json = localStorage.getItem('options');
+      const options = JSON.parse(json);
+      if(options) this.setState(() => ({options}));
+    } catch(e) {
+      //Do nothing at all
+    }
+  }
+  //Save new options to local storage
+  componentDidUpdate(prevProps, prevState){
+    if(prevState.options.length !== this.state.options.length){
+      const json = JSON.stringify(this.state.options);
+      localStorage.setItem('options', json);
+    }
+  }
+  
   //remove all options
   handleDeleteOptions(){
     this.setState(() => ({options:[]}));
@@ -20,7 +38,7 @@ class IndecisionApp extends React.Component {
       options: prevs.options.filter((option) => option !== optionToRemove)
     }))
   }
-  //randomly pick an options
+  //randomly pick an option
   handlePick(){
     const rand = Math.floor(Math.random() * this.state.options.length);
     const option = this.state.options[rand];
@@ -98,6 +116,7 @@ const Options = (props) => {
   return (
       <div>
       <button onClick={props.handleDeleteOptions}>Remove All</button>
+      {props.options.length === 0 && <p>Please add an option to get started!</p>}
         {
           props.options.map((option) => (
               <Option 
@@ -137,13 +156,14 @@ class AddOption extends React.Component {
   //grab submitted options and send it to parent for addition
   handleAddOption(e){
     e.preventDefault();
-    //get option and set input to blank
+    //get option from event
     const option = e.target.elements.option.value.trim();
-    e.target.elements.option.value = '';
     //call for parent to add option and return any errors
     const error = this.props.handleAddOption(option);
     //set error state to returned error if any
     this.setState(() => ({error}));
+    //if no error clear form input
+    if(!error) e.target.elements.option.value = '';
   }
   render() {
     return (

@@ -27,10 +27,36 @@ var IndecisionApp = function (_React$Component) {
   }
 
   _createClass(IndecisionApp, [{
-    key: 'handleDeleteOptions',
+    key: 'componentDidMount',
 
     //START: APP METHODS
+    //Set options from local storage if they exist
+    value: function componentDidMount() {
+      try {
+        var json = localStorage.getItem('options');
+        var options = JSON.parse(json);
+        if (options) this.setState(function () {
+          return { options: options };
+        });
+      } catch (e) {
+        //Do nothing at all
+      }
+    }
+    //Save new options to local storage
+
+  }, {
+    key: 'componentDidUpdate',
+    value: function componentDidUpdate(prevProps, prevState) {
+      if (prevState.options.length !== this.state.options.length) {
+        var json = JSON.stringify(this.state.options);
+        localStorage.setItem('options', json);
+      }
+    }
+
     //remove all options
+
+  }, {
+    key: 'handleDeleteOptions',
     value: function handleDeleteOptions() {
       this.setState(function () {
         return { options: [] };
@@ -49,7 +75,7 @@ var IndecisionApp = function (_React$Component) {
         };
       });
     }
-    //randomly pick an options
+    //randomly pick an option
 
   }, {
     key: 'handlePick',
@@ -152,6 +178,11 @@ var Options = function Options(props) {
       { onClick: props.handleDeleteOptions },
       'Remove All'
     ),
+    props.options.length === 0 && React.createElement(
+      'p',
+      null,
+      'Please add an option to get started!'
+    ),
     props.options.map(function (option) {
       return React.createElement(Option, {
         key: option,
@@ -201,15 +232,16 @@ var AddOption = function (_React$Component2) {
     key: 'handleAddOption',
     value: function handleAddOption(e) {
       e.preventDefault();
-      //get option and set input to blank
+      //get option from event
       var option = e.target.elements.option.value.trim();
-      e.target.elements.option.value = '';
       //call for parent to add option and return any errors
       var error = this.props.handleAddOption(option);
       //set error state to returned error if any
       this.setState(function () {
         return { error: error };
       });
+      //if no error clear form input
+      if (!error) e.target.elements.option.value = '';
     }
   }, {
     key: 'render',
