@@ -2,15 +2,12 @@ import React from 'react';
 
 //The bottom form to submit a new option
 export default class AddOption extends React.Component {
-  constructor(props){
-    super(props);
-    //function binding
-    this.handleAddOption = this.handleAddOption.bind(this);
-    //setup state
-    this.state = {error: undefined};
-  }
+  //setup state
+  state = {
+    error: undefined
+  };
   //grab submitted options and send it to parent for addition
-  handleAddOption(e){
+  handleAddOption = (e) => {
     e.preventDefault();
     //get option from event
     const option = e.target.elements.option.value.trim();
@@ -27,7 +24,7 @@ export default class AddOption extends React.Component {
         {this.state.error && <p>{this.state.error}</p>}
         <form onSubmit={this.handleAddOption}>
           <input type='text' name="option"/>
-          <button>Submit Option</button>
+          <button>Add Option</button>
         </form>
       </div>
     );
