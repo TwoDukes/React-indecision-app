@@ -7,8 +7,14 @@
   "license": "MIT",
   "scripts": {
     "serve": "live-server public/",
-    "build": "webpack",
-    "dev-server": "webpack-dev-server"
+    "build:dev": "webpack --env dev",
+    "build:prod": "webpack -p --env production",
+    "dev-server": "webpack-dev-server",
+    "start": "node server/server.js",
+    "heroku-postbuild": "yarn run build:prod"
+  },
+  "engines": {
+    "node": "8.9.1"
   },
   "dependencies": {
     "babel-cli": "^6.26.0",
