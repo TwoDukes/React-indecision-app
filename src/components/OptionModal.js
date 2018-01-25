@@ -1,6 +1,7 @@
 import React from 'react';
 import Modal from 'react-modal';
 
+//The modal that pops up to tell you the chosen decision
 const OptionModal = (props) => (
    <Modal
     isOpen={!!props.selectedOption}
